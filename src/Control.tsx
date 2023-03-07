@@ -56,7 +56,6 @@ export const Control = React.forwardRef<any, ControlProps>(function Control(
 
   return (
     <select
-      ref={ref}
       className={classNameWrapper}
       id={forID}
       value={value}
