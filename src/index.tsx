@@ -1,6 +1,3 @@
-import * as React from 'react';
-
-// Delete me
-export const Thing = () => {
-  return <div>the snozzberries taste like snozzberries</div>;
-};
+export { Control } from './Control';
+export { Preview } from './Preview';
+export { schema } from './schema';
