@@ -5,11 +5,9 @@ export const schema = {
     },
     id_field: {
       type: 'string',
-      optional: true,
     },
     title_field: {
       type: 'string',
-      optional: true,
     },
   },
 };
