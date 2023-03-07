@@ -1,3 +1,5 @@
-export { Control } from './Control';
-export { Preview } from './Preview';
-export { schema } from './schema';
+import { Control } from './Control';
+import { Preview } from './Preview';
+import { schema } from './schema';
+
+window.CMS.registerWidget('rss', Control, Preview, schema);
