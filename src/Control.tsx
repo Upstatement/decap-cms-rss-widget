@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Parser from 'rss-parser';
 
 export interface ControlProps {
   onChange(value: string): void;
@@ -26,16 +25,27 @@ export function Control({
   React.useEffect(() => {
     if (feedUrl) {
       (async () => {
-        const parser = new Parser();
         try {
-          const feed = await parser.parseURL(feedUrl);
-          setItems(feed.items);
+          const headers = new Headers();
+          headers.set('accept', 'text/xml');
+          const feed = await fetch(feedUrl, { headers });
+          const text = await feed.text();
+
+          const parser = new DOMParser();
+          const xml = parser.parseFromString(text, 'text/xml');
+
+          const itemElements = xml.querySelectorAll('item');
+          const items = Array.from(itemElements).map(item => ({
+            id: item.querySelector(idField)?.textContent ?? '',
+            title: item.querySelector(titleField)?.textContent ?? '',
+          }));
+          setItems(items);
         } catch {
           console.error('Invalid feed URL.');
         }
       })();
     }
-  }, [feedUrl]);
+  }, [feedUrl, idField, titleField]);
 
   return (
     <select
@@ -45,7 +55,7 @@ export function Control({
       onChange={evt => onChange(evt.target.value)}
     >
       {items.map(item => (
-        <option value={item[idField]}>{item[titleField]}</option>
+        <option value={item.id}>{item.title}</option>
       ))}
     </select>
   );
