@@ -10,13 +10,10 @@ export interface ControlProps {
   };
 }
 
-export function Control({
-  onChange,
-  forID,
-  value,
-  classNameWrapper,
-  field,
-}: ControlProps) {
+export const Control = React.forwardRef<any, ControlProps>(function Control(
+  { onChange, forID, value, classNameWrapper, field },
+  ref
+) {
   const feedUrl = field.get('feed_url', '');
   const idField = field.get('id_field', 'id');
   const titleField = field.get('title_field', 'title');
@@ -47,8 +44,19 @@ export function Control({
     }
   }, [feedUrl, idField, titleField]);
 
+  React.useImperativeHandle(
+    ref,
+    () => ({
+      isValid() {
+        return { error: false };
+      },
+    }),
+    []
+  );
+
   return (
     <select
+      ref={ref}
       className={classNameWrapper}
       id={forID}
       value={value}
@@ -59,4 +67,4 @@ export function Control({
       ))}
     </select>
   );
-}
+});
