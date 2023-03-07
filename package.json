@@ -33,16 +33,6 @@
   "name": "decap-cms-rss-widget",
   "author": "joshuapensky@gmail.com",
   "module": "dist/decap-cms-rss-widget.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/decap-cms-rss-widget.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/decap-cms-rss-widget.esm.js",
-      "limit": "10 KB"
-    }
-  ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^8.2.4",
     "@types/react": "^18.0.28",
